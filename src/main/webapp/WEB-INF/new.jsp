@@ -39,6 +39,6 @@
 
   %>
 </table>
-<a href="/edit">Edit record intdo DB</a>
+<a href="/edit">Edit record into DB</a>
 </body>
 </html>

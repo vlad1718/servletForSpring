@@ -1,4 +1,6 @@
 package servlet;
+
+
 import org.flywaydb.core.Flyway;
 
 import javax.sql.DataSource;
@@ -13,13 +15,14 @@ import java.util.logging.Logger;
 /**
  * Created by User on 14.10.2015.
  */
-public class RequestsImpl implements Request {
-    private Flyway fl;
+public class RequestsImpl   implements Request {
+
+    public DataSource getDs() {
+        return ds;
+    }
+
     private DataSource ds;
 
-    public void setFl(Flyway fl) {
-        this.fl = fl;
-    }
 
 
 

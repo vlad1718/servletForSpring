@@ -1,5 +1,7 @@
 package servlet;
 
+import com.sun.corba.se.impl.corba.RequestImpl;
+import org.flywaydb.core.Flyway;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -29,8 +31,12 @@ public class NewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
         ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        Request r =(Request)context.getBean("RequestsImpl");
+        RequestsImpl r =(RequestsImpl)context.getBean("RequestsImpl");
+        Flyway fl = new Flyway();
 
+        fl.setDataSource(r.getDs());
+
+       fl.migrate();
         List<Client> ClientList = new ArrayList<Client>();
 
         if(path.contains("/servlets")){
