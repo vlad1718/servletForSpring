@@ -35,8 +35,7 @@ public class NewServlet extends HttpServlet {
         Flyway fl = new Flyway();
 
         fl.setDataSource(r.getDs());
-
-       fl.migrate();
+        fl.migrate();
         List<Client> ClientList = new ArrayList<Client>();
 
         if(path.contains("/servlets")){

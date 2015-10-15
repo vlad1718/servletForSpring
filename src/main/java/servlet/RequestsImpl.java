@@ -34,7 +34,9 @@ public class RequestsImpl   implements Request {
     }
 
     public List getClients() {
+        ArrayList list = new ArrayList();
         try {
+
             Connection connection = ds.getConnection();
             String sq_str = "SELECT * FROM client";
             PreparedStatement ps = connection.prepareStatement(sq_str);
