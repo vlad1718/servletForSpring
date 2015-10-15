@@ -1,4 +1,6 @@
 package servlet;
+import org.flywaydb.core.Flyway;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +14,13 @@ import java.util.logging.Logger;
  * Created by User on 14.10.2015.
  */
 public class RequestsImpl implements Request {
-
+    private Flyway fl;
     private DataSource ds;
+
+    public void setFl(Flyway fl) {
+        this.fl = fl;
+    }
+
 
 
     ArrayList list = new ArrayList();
@@ -70,6 +77,21 @@ public class RequestsImpl implements Request {
         }
 
     }
+
+    public void delete(String name) {
+        Connection con = null;
+        try{
+            con = ds.getConnection();
+            String sq_str="DELETE FROM client WHERE FirstName ='" + name
+                    + "'";
+            PreparedStatement ps=con.prepareStatement(sq_str);
+
+            ps.executeUpdate();
+        }
+        catch (SQLException e){
+        }
+    }
+
 }
 
 

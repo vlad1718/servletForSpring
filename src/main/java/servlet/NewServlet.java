@@ -30,6 +30,7 @@ public class NewServlet extends HttpServlet {
         String path = request.getRequestURI();
         ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         Request r =(Request)context.getBean("RequestsImpl");
+
         List<Client> ClientList = new ArrayList<Client>();
 
         if(path.contains("/servlets")){
@@ -63,6 +64,25 @@ public class NewServlet extends HttpServlet {
             }
             getServletContext().getRequestDispatcher("/WEB-INF/insert.jsp").forward(request, response);
         }
+        else if(path.contains("/del")){
+            String name = request.getParameter("name");
+            if( name != null){
+                try {
 
+
+
+                        r.delete(name);
+                        ClientList = r.getClients();
+                        request.setAttribute("list",ClientList);
+                        getServletContext().getRequestDispatcher("/WEB-INF/new.jsp").forward(request, response);
+                        return;
+
+                }catch (NumberFormatException e) {
+                    System.err.println("Неверный формат строки!");
+                }
+            }
+            getServletContext().getRequestDispatcher("/WEB-INF/del.jsp").forward(request, response);
+
+        }
     }
 }
