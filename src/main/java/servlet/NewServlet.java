@@ -32,7 +32,7 @@ public class NewServlet extends HttpServlet {
         Request r =(Request)context.getBean("RequestsImpl");
         List<Client> ClientList = new ArrayList<Client>();
 
-        if(path.equals("/servlets")){
+        if(path.contains("/servlets")){
              ClientList = r.getClients();
 
             request.setAttribute("list", ClientList);
