@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>lmmlmllm</title>
+    <title>my table</title>
 </head>
 <body>
 <table border="1">

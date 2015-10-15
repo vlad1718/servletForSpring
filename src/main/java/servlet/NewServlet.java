@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,25 +21,47 @@ import java.util.List;
 public class NewServlet extends HttpServlet {
 
 
-    public NewServlet(){
 
-    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String path = request.getRequestURI();
+        ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        Request r =(Request)context.getBean("RequestsImpl");
+        List<Client> ClientList = new ArrayList<Client>();
 
         if(path.equals("/servlets")){
-            ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-            Request r =(Request)context.getBean("RequestsImpl");
+             ClientList = r.getClients();
 
-
-            List<Client> ClientList = r.getClients();
             request.setAttribute("list", ClientList);
             getServletContext().getRequestDispatcher("/WEB-INF/new.jsp").forward(request, response);
 
+        }
+        else if(path.contains("/edit")){
+
+            String name=request.getParameter("fisrtname");
+            if(name!=null){
+                String lastname=request.getParameter("lastname");
+                String adress=request.getParameter("adress");
+
+
+                try {
+                    Client cl = new Client(0,name,lastname,adress);
+                     r.insert(cl);
+
+
+                    ClientList = r.getClients();
+                    request.setAttribute("list",ClientList);
+                    getServletContext().getRequestDispatcher("/WEB-INF/new.jsp").forward(request, response);
+                    return;
+
+                }
+                catch (NumberFormatException e) {
+                }
+            }
+            getServletContext().getRequestDispatcher("/WEB-INF/insert.jsp").forward(request, response);
         }
 
     }

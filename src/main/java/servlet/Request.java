@@ -7,4 +7,5 @@ import java.util.List;
  */
 public interface Request {
     public List getClients();
+    public void insert(Client client);
 }
