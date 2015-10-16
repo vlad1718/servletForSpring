@@ -32,10 +32,7 @@ public class NewServlet extends HttpServlet {
         String path = request.getRequestURI();
         ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
         RequestsImpl r =(RequestsImpl)context.getBean("RequestsImpl");
-        Flyway fl = new Flyway();
 
-        fl.setDataSource(r.getDs());
-        fl.migrate();
         List<Client> ClientList = new ArrayList<Client>();
 
         if(path.contains("/servlets")){
